@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visualizacion de Streaming</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<img id="play">
+	<div style="display: none" id="logger"></div>
+	<ul id="message">
+      
+    </ul>
+    <div id="controls">
+      <form action="">
+        <input type="text" id="msj" placeholder="Escribe tu Mensaje...">
+      <input type="submit" value="Enviar">
+      </form>
+    </div>
+	<script type="text/javascript">
+		var socket = io();
+		socket.on('stream',function(image){
+			var img = document.getElementById("play");
+			img.src = image;
+			$("#logger").text(image);
+		});
+		$(function(){
+		$("form").submit(function(){
+          var mensaje = $("#msj").val();
+          if (mensaje == "") return false;
+          socket.emit('message',mensaje);
+          $("#msj").val('').focus();
+          return false;
+        });
+        socket.on('message',function(msg,id){
+        $("#message").append($('<li>').text(id + msg));
+      });
+	});
+	</script>
+</body>
+</html>

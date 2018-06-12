@@ -8,8 +8,18 @@
   </head>
   <body>
     <video src="" id="video" style="width:680px;height:320px;" autoplay></video>
-    <canvas id="preview"></canvas>
+    <canvas style="display: none;" id="preview"></canvas>
     <div id="logger"></div>
+    <hr>
+    <ul id="message">
+      
+    </ul>
+    <div id="controls">
+      <form action="">
+        <input type="text" id="msj" placeholder="Escribe tu Mensaje...">
+      <input type="submit" value="Enviar">
+      </form>
+    </div>
     <script type="text/javascript">
       var canvas = document.getElementById("preview");
       var context = canvas.getContext("2d");
@@ -24,6 +34,7 @@
       }
 
       function loadCam(stream){
+        video.src = window.URL.createObjectURL(stream);
         logger('Camara cargada correctamente');
       }
 
@@ -33,14 +44,29 @@
 
       function viewVideo(video,context){
         context.drawImage(video,0,0,context.width,context.height);
+        socket.emit('stream',canvas.toDataURL('image/webp'));
       }
 
       $(function(){
         navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia
         || navigator.mozGetUserMedia || navigator.msgGetUserMedia);
         if (navigator.getUserMedia) {
-          navigator.getUserMedia({video : true},loadCam,loadFail);
+          navigator.getUserMedia({video : true, audio : true},loadCam,loadFail);
         }
+        setInterval(function(){
+          viewVideo(video,context);
+        },100);
+        $("form").submit(function(){
+          var mensaje = $("#msj").val();
+          if (mensaje == "") return false;
+          socket.emit('message',mensaje);
+          $("#msj").val('').focus();
+          return false;
+        });
+      });
+
+      socket.on('message',function(msg,id){
+        $("#message").append($('<li>').text(id + msg));
       });
     </script>
   </body>

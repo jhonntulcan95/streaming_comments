@@ -16,8 +16,15 @@ app.get('/',function(req,res){
 
 io.on('connection',function(socket){
     socket.on('stream',function(image){
-      socket.broadcast.emit('stream',image)
+      socket.broadcast.emit('stream',image);
     });
+    socket.on('message',function(msj){
+    	io.emit('message',msj,socket.id);
+    });
+    socket.on('disconnect',function(){
+    	console.log('Usuario Desconectado : %s', socket.id)
+    });
+    console.log("usuario id : %s", socket.id);
 });
 http.listen(port,function(){
   log.info('Servidor escuchando a traves del puerto %s', port);

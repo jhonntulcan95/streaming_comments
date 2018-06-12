@@ -1,0 +1,24 @@
+{
+  "name": "streaming_comments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhonntulcan95/streaming_comments.git"
+  },
+  "author": "Jhonn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jhonntulcan95/streaming_comments/issues"
+  },
+  "homepage": "https://github.com/jhonntulcan95/streaming_comments#readme",
+  "dependencies": {
+    "socket.io" : "*",
+    "express" : "*",
+    "log" : "*"
+  }
+}

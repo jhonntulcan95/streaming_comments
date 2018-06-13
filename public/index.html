@@ -3,10 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Streaming</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   </head>
-  <body>
-    <p><a href="emitir.html">EMITIR CAMARA WEB</a></p>
-    <hr>
-    <p><a href="visualizar.html">VER TRANSMISION</a></p>
-  </body>
+  <body class="font-cover">
+    <div class="container-menu center-align">
+        <div style="margin:15px 0;">
+            <img class="streaming_logo" src="img/streaming_logo.png">
+            <p>Sistema de Reproduccion de video<br/>
+            en tiempo real con comentarios
+            <p>Escoje alguna de las 2 opciones</p>   
+        </div>
+        <a href="emitir.html"><input type="button" class="waves-effect waves-light btn" value="Emitir Video"></input></a>
+        <br><br>
+        <a href="visualizar.html"><input type="button" class="waves-effect waves-light btn" value="Visualizar Video"></input></a>
+        <div class="divider" style="margin: 20px 0;"></div>
+    </div>
+</body>
 </html>
